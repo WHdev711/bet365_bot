@@ -32,13 +32,13 @@ import fcntl
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class BotBase(object):
     def __init__(self,options):
-        print("@@@@@@@@@@@@@@@@@@@@@@@@", options)
         if options.sport is None:
             raise("Specify --sport parameter")
             
         for sprt in Sport:
             if sprt.name.lower() == options.sport.lower():
                 self.sprt = sprt.value
+        print("#############",self.__class__.__name__)
         self.bot_data = {"region":"it","book_name":self.__class__.__name__}
         
         self.options = options
@@ -94,7 +94,7 @@ class BotBase(object):
             self.proxies_residential = [line.strip() for line in f.readlines()]
 
     def get_db(self):
-        db = mysql.connector.connect(user=self.options.username, password=self.options.password, database=self.options.database, host=self.options.host,unix_socket='/var/lib/mysql/mysql.sock')
+        db = mysql.connector.connect(user=self.options.username, password=self.options.password, database=self.options.database, host=self.options.host)
         db.autocommit = False
         
         return db

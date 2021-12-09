@@ -20,12 +20,17 @@ class BotMaster():
         self.all_bots = {}
         
     def start_bot(self,bot_filename,options):
+        print('1111111111111111',bot_filename)
         bookie_name = bot_filename.replace(".py","")
         #spec = importlib.util.spec_from_file_location(bookie_name, "./bookies/"+bot_filename)
         #bot_module = importlib.util.module_from_spec(spec)
+        print('222222222222222222',bookie_name)
         bot_module = getattr(importlib.import_module(bookie_name),bookie_name)
+        print('333333333333333',bot_module)
+
         while 1:
             try:   
+                print("12222222222",options)
                 bot = bot_module(options)
                 bot.run()
             except Exception as e:
@@ -71,7 +76,7 @@ def init_options():
     
 def get_database_params():
     url = "http://odds.ninjabet.it/get_ip.php?region=it"
-    return orjson.loads('{"username":"root","password":"","database":"ninjabet_test","host":"localhost"}')
+    return orjson.loads('{"username":"prodev","password":"","database":"ninjabet_test","host":"localhost"}')
     # return orjson.loads('{"username":"83fdd02e71","password":"4e59d10211ad4d477b3","database":"ninjabet_dev","host":"localhost"}')
     
     
